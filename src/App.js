@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {Routes, Route } from 'react-router-dom'
+// pages/routes
+import Home from './routes/Home';
+import UpdatePage from './routes/UpdatePage';
+import RestaurantDetailPage from './routes/RestaurantDetailPage';
+//context
+import { RestaurantContextProvider, useRestaurants } from './context/RestaurantsContext';
+import { SelectedRestaurantContextProvider } from './context/SelectedRestaurantContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <SelectedRestaurantContextProvider>
+        <RestaurantContextProvider>
+        <div className='container'>
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/restaurants/:id/update' element={<UpdatePage />} />
+                <Route path='/restaurants/:id' element={<RestaurantDetailPage />} />
+            </Routes>
+        </div>
+        </RestaurantContextProvider>
+        </SelectedRestaurantContextProvider>
+    )
 }
 
 export default App;
